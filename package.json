@@ -16,5 +16,20 @@
   "bugs": {
     "url": "https://github.com/MEANProjectsVJ/base-backend/issues"
   },
-  "homepage": "https://github.com/MEANProjectsVJ/base-backend#readme"
+  "homepage": "https://github.com/MEANProjectsVJ/base-backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "bcrypt": "5.0.1",
+    "cors": "2.8.5",
+    "dotenv": "9.0.1",
+    "express": "4.17.1",
+    "helmet": "4.6.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.12.7",
+    "morgan": "1.10.0",
+    "typescript": "4.2.4",
+    "validatorjs": "3.22.1"
+  }
 }
