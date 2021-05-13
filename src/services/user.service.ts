@@ -37,3 +37,15 @@ export const register = (usuario) => {
     }
   });
 };
+
+export const login = (userLogin) => {
+  const { username, pw } = userLogin
+  return new Promise (async (resolve, reject) => {
+
+
+    const foundUser = await User.find({ username })
+    console.log(foundUser.password)
+    // const matchPw = await User.compareEncryptPassword(foundUser , pw)
+    
+  })
+}
