@@ -1,5 +1,5 @@
 import { Schema, Model, model, Document } from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export interface IUserDocument extends Document{
     username: String;
@@ -38,13 +38,13 @@ const userSchema = new Schema(
 );
 
 userSchema.statics.encryptPassword = async (password) => {
-    const salt = 10
-    const hashedPw = await bcrypt.hash(password, salt)
+    const salt = await bcrypt.genSaltSync(10)
+    const hashedPw = await bcrypt.hashSync(`${password}`, salt)
     return hashedPw
 }
 
-userSchema.statics.compareEncryptPassword = async (dbPw, receivedPw) => {
-  return await bcrypt.compare(dbPw, receivedPw)
+userSchema.statics.compareEncryptPassword = async (receivedPw, dbPw) => {
+  return await bcrypt.compare(receivedPw, dbPw) // first pw later dbPw
 }
 
 export const User: IUserModel = model<IUserDocument, IUserModel>('user', userSchema)

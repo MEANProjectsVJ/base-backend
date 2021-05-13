@@ -39,13 +39,20 @@ export const register = (usuario) => {
 };
 
 export const login = (userLogin) => {
-  const { username, pw } = userLogin
+  const { username, password } = userLogin
   return new Promise (async (resolve, reject) => {
 
-
-    const foundUser = await User.find({ username })
-    console.log(foundUser.password)
-    // const matchPw = await User.compareEncryptPassword(foundUser , pw)
-    
+    const foundUser = await User.findOne({ username })
+    if (!foundUser) {
+      reject({ code: 404, message: "User not found"})
+      return
+    }
+    const matchPw = await User.compareEncryptPassword(password, foundUser.password)
+    if(!matchPw) {
+      reject({ code: 401, message: "Invalid Password"})
+      return
+    }
+    const token = await signToken(foundUser._id, config.SECRET)
+    resolve({token})
   })
 }
