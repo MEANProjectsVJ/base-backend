@@ -9,7 +9,7 @@ export const validarObjeto = function(objeto, reglas, funcionRechazo){
     if (validador.fails()) {
         funcionRechazo({
             code: 400,
-            message: "The data you're trying to introduce are incorrect!"
+            message: "The data you're trying to introduce is incorrect!"
         })
         return false;
     }

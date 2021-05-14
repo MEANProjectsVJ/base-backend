@@ -28,11 +28,13 @@ export const register = (usuario) => {
 
     try {
       const savedUser = await newUser.save();
+      console.log("savedUser", savedUser)
       const token = await signToken(savedUser._id, config.SECRET);
+      console.log("token", token)
       resolve({user: savedUser.username ,token });
 
     } catch (error) {
-      console.log(error);
+      console.log("el errrorrr", error);
       reject({ code: 500, message: "Error Trying to insert in database" });
     }
   });
@@ -54,5 +56,25 @@ export const login = (userLogin) => {
     }
     const token = await signToken(foundUser._id, config.SECRET)
     resolve({token})
+  })
+}
+
+export const checkDuplicateUsernameEmail = (username, email) => {
+  return new Promise (async (resolve, reject) => {
+      console.log(username, email)
+      const userCoincidence = await User.findOne({ $or: [{username},{email}]})
+      if (userCoincidence === null) {
+        resolve(true)
+      }
+      if (userCoincidence.username === username) {
+        console.log("dupli user")
+        reject({ code: 401, message: "Duplicate Username"})
+        return false
+      }
+      if (userCoincidence.email === email) {
+        console.log("dupli email")
+        reject({ code: 401, message: "Duplicate Email"})
+        return false
+      }
   })
 }

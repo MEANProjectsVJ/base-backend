@@ -2,7 +2,7 @@ POST http://localhost:4000/register
 Content-Type: application/json
 
 {
-  "username" : "veronica",
-  "password" : "veronica",
-  "email" : "veronica@gmail.es"
+  "username" : "veronicaca1",
+  "password" : "veronico",
+  "email" : "veronicaca1@gmail.es"
 }
